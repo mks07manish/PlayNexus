@@ -3,6 +3,7 @@ const SignUpPage = require('../page_fixture/SignUpPage');
 const LoginPage = require('../page_fixture/LoginPage');
 const ContactUsPage = require('../page_fixture/ContactUsPage');
 const TestCasePage = require("../page_fixture/TestCasePage");
+const ProductPage = require('../page_fixture/ProductPage');
 
 test('Register User', async ({ page }) => {
     const signuppage = new SignUpPage(page);
@@ -87,10 +88,21 @@ test('Contact Us Form', async({page}) => {
     await contactUsPage.clickToHomeBTN();
     await contactUsPage.verifyNavigationPageTitle('Automation Exercise');
 });
-test.only('Verify Test Cases Page', async ({page}) =>{
+test('Verify Test Cases Page', async ({page}) =>{
     const testCasePage = new TestCasePage(page);
     await testCasePage.navigateToUrl('https://automationexercise.com/');
     await testCasePage.verifyNavigationPageTitle('Automation Exercise');
     await testCasePage.clickToTestCaseLink();
     await testCasePage.verifyNavigationPageTitle('Automation Practice Website for UI Testing - Test Cases');
+});
+
+test.only('Verify All Products and product detail page', async ({page}) =>{
+    const productPage = new ProductPage(page);
+    await productPage.navigateToUrl('https://automationexercise.com/');
+    await productPage.verifyNavigationPageTitle('Automation Exercise');
+    await productPage.clickTOProductPageLink();
+    await productPage.verifyNavigationPageTitle('Automation Exercise - All Products');
+    await productPage.clickToViewProductLink();
+    await productPage.verifyNavigationPageTitle('Automation Exercise - Product Details');
+    await productPage.verifyProductDetails();
 });
