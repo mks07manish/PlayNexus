@@ -2,6 +2,7 @@ const { test, expect } = require("@playwright/test");
 const SignUpPage = require('../page_fixture/SignUpPage');
 const LoginPage = require('../page_fixture/LoginPage');
 const ContactUsPage = require('../page_fixture/ContactUsPage');
+const TestCasePage = require("../page_fixture/TestCasePage");
 
 test('Register User', async ({ page }) => {
     const signuppage = new SignUpPage(page);
@@ -70,7 +71,7 @@ test('Register User with existing email', async ({page}) =>{
     await signuppage.verifyErrorMessage();
 });
 
-test.only('Contact Us Form', async({page}) => {
+test('Contact Us Form', async({page}) => {
     const contactUsPage = new ContactUsPage(page);
     await contactUsPage.navigateToUrl('https://automationexercise.com/');
     await contactUsPage.verifyNavigationPageTitle('Automation Exercise');
@@ -85,4 +86,11 @@ test.only('Contact Us Form', async({page}) => {
     await contactUsPage.verifySuccessMessage();
     await contactUsPage.clickToHomeBTN();
     await contactUsPage.verifyNavigationPageTitle('Automation Exercise');
+});
+test.only('Verify Test Cases Page', async ({page}) =>{
+    const testCasePage = new TestCasePage(page);
+    await testCasePage.navigateToUrl('https://automationexercise.com/');
+    await testCasePage.verifyNavigationPageTitle('Automation Exercise');
+    await testCasePage.clickToTestCaseLink();
+    await testCasePage.verifyNavigationPageTitle('Automation Practice Website for UI Testing - Test Cases');
 });
