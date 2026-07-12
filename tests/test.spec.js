@@ -60,7 +60,7 @@ test('Logout User', async ({ page }) => {
     await loginPage.verifyNavigationPageTitle('Automation Exercise - Signup / Login');
 });
 
-test('Register User with existing email', async ({page}) =>{
+test('Register User with existing email', async ({ page }) => {
     const signuppage = new SignUpPage(page);
     await signuppage.navigateToUrl('https://automationexercise.com/');
     await signuppage.verifyNavigationPageTitle('Automation Exercise');
@@ -72,7 +72,7 @@ test('Register User with existing email', async ({page}) =>{
     await signuppage.verifyErrorMessage();
 });
 
-test('Contact Us Form', async({page}) => {
+test('Contact Us Form', async ({ page }) => {
     const contactUsPage = new ContactUsPage(page);
     await contactUsPage.navigateToUrl('https://automationexercise.com/');
     await contactUsPage.verifyNavigationPageTitle('Automation Exercise');
@@ -88,7 +88,7 @@ test('Contact Us Form', async({page}) => {
     await contactUsPage.clickToHomeBTN();
     await contactUsPage.verifyNavigationPageTitle('Automation Exercise');
 });
-test('Verify Test Cases Page', async ({page}) =>{
+test('Verify Test Cases Page', async ({ page }) => {
     const testCasePage = new TestCasePage(page);
     await testCasePage.navigateToUrl('https://automationexercise.com/');
     await testCasePage.verifyNavigationPageTitle('Automation Exercise');
@@ -96,7 +96,7 @@ test('Verify Test Cases Page', async ({page}) =>{
     await testCasePage.verifyNavigationPageTitle('Automation Practice Website for UI Testing - Test Cases');
 });
 
-test.only('Verify All Products and product detail page', async ({page}) =>{
+test('Verify All Products and product detail page', async ({ page }) => {
     const productPage = new ProductPage(page);
     await productPage.navigateToUrl('https://automationexercise.com/');
     await productPage.verifyNavigationPageTitle('Automation Exercise');
@@ -106,3 +106,22 @@ test.only('Verify All Products and product detail page', async ({page}) =>{
     await productPage.verifyNavigationPageTitle('Automation Exercise - Product Details');
     await productPage.verifyProductDetails();
 });
+
+test('Search Product', async ({ page }) => {
+    const productPage = new ProductPage(page);
+    await productPage.navigateToUrl('https://automationexercise.com/');
+    await productPage.verifyNavigationPageTitle('Automation Exercise');
+    await productPage.clickTOProductPageLink();
+    await productPage.verifyNavigationPageTitle('Automation Exercise - All Products');
+    await productPage.searchProduct('Blue');
+    await productPage.verifySearchProduct();
+});
+
+test('Verify Subscription in home page', async({page}) =>{
+    const signuppage = new SignUpPage(page);
+    await signuppage.navigateToUrl('https://automationexercise.com/');
+    await signuppage.verifyNavigationPageTitle('Automation Exercise');
+    await signuppage.scrollDownToSubscriptionPage();
+    await signuppage.enterSubscriptionDTL('manish12@gmail.com');
+    await signuppage.verifySubscriptionMessage();
+})

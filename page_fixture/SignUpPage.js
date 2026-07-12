@@ -33,6 +33,10 @@ class SignUpPage extends BasePage {
         this.deleteLink = page.getByRole('link',{name : 'Delete Account'});
         this.accountDeletedMsg = page.locator('[data-qa="account-deleted"]');
         this.errorMsg = page.locator('p',{hasText : 'Email Address already exist!'});
+        this.subscriptionText = page.getByText('Subscription');
+        this.subscriptionEmail = page.locator('#susbscribe_email');
+        this.subscriptionBTN= page.locator("#subscribe");
+        this.subscriptionMSG = page.getByText('You have been successfully subscribed!');
     }
 
     async clickToLoginBTN() {
@@ -110,6 +114,17 @@ class SignUpPage extends BasePage {
     }
     async verifyErrorMessage(){
         await this.elementVisible(this.errorMsg);
+    }
+    async scrollDownToSubscriptionPage(){
+        await this.subscriptionBTN.scrollIntoViewIfNeeded();
+        await this.elementVisible(this.subscriptionText);
+    }
+    async enterSubscriptionDTL(value){
+        await this.fillData(this.subscriptionEmail,value);
+        await this.clickToLocator(this.subscriptionBTN);
+    }
+    async verifySubscriptionMessage(){
+        await this.elementVisible(this.subscriptionMSG);
     }
 }
 module.exports = SignUpPage;

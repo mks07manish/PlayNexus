@@ -12,6 +12,9 @@ class ProductPage extends BasePage{
         this.availability = page.locator('.product-information p').filter({hasText : 'Availability:'});
         this.condition = page.locator('.product-information p').filter({hasText : 'Condition:'});
         this.brand = page.locator('.product-information p').filter({hasText : 'Brand:'});
+        this.searchPrductTxt = page.locator('#search_product');
+        this.searchProductBTN= page.locator('#submit_search');
+        this.searchProductVisible = page.locator('.product-image-wrapper');
     }
     async clickTOProductPageLink(){
         await this.clickToLocator(this.productPageLink);
@@ -27,6 +30,14 @@ class ProductPage extends BasePage{
         await this.elementVisible(this.condition);
         await this.elementVisible(this.brand);
     }
-
+    async searchProduct(value){
+        await this.fillData(this.searchPrductTxt,value);
+        await this.clickToLocator(this.searchProductBTN);
+    }
+    async verifySearchProduct(){
+        await expect(this.searchProductVisible.first()).toBeVisible();
+        const count = await this.searchProductVisible.count();
+        await expect(count).toBeGreaterThan(0);
+    }
 }
 module.exports=ProductPage;
